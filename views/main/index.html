@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <title>index</title>
+        <link rel="stylesheet" href="/public/css/main.css">
+        <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+    </head>
+    <body>
+        <h1>welcome to my index!!</h1>
+        <ul class="nav nav-pills">
+            {%for category in categories%}
+            <li role="presentation" class="active"><a href="#">{{category.name}}</a></li>
+            {%endfor%}
+        </ul>
+        {%if userInfo._id%}
+        <div class="right login-after">
+            <h2>登录后</h2>
+            <div>用户信息</div>
+            <p>你是{{userInfo.username}} {%if userInfo.isAdmin%}<a href="/admin">点击此可以进入管理员界面</a>{%else%}欢迎来到我的博客{%endif%}</p>
+            <p><a href="javascript:" id="logout">退出</a></p>
+        </div>
+        {%else%}
+        <div class="right login hide">
+            <h2>登录</h2>
+                用户名：<input type="text" name="username" />
+                密码：<input type="password" name="password" />
+                <button type="button">提交</button>
+                <p class="register-warning"></p>
+                <a href="javascript:">去注册</a>
+        </div>
+        <div class="right register ">
+            <h2>注册</h2>
+                用户名：<input type="text" name="username" />
+                密码：<input type="text" name="password" />
+                确认密码：<input type="text" name="repassowrd" />
+                <button>提交</button>
+                <a href="javascript:">去登录</a>
+            <p class="register-warning"></p>
+        </div>
+        {%endif%}
+    </body>
+    <script src="/public/js/jquery-3.2.1.min.js"></script>
+    <script src="/public/js/index.js"> </script>
+    <script src="/public/js/bootstrap.min.js"></script>
+</html>

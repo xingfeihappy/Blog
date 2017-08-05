@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{%block main%}
+<ol class="breadcrumb">
+    <li><a href="#">管理首页</a></li>
+    <li><span>首页</span></li>
+</ol>
+<h3>分类修改</h3>
+<form method="post">
+    <div class="form-group">
+        <label for="name">分类名称</label>
+        <input type="hidden" name="id" value="{{category._id}}">
+        <input type="text" class="form-control" id="name" name="name" value="{{category.name}}">
+    </div>
+
+    <button type="submit" class="btn btn-default">确认修改</button>
+</form>
+{%endblock%}

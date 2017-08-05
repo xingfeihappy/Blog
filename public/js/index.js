@@ -1,0 +1,72 @@
+$(function(){
+    var $loginbox = $(".login");
+    var $registerbox = $(".register");
+    $loginbox.find("a").on('click',function(){
+        $registerbox.show();
+        $loginbox.hide();
+    })
+
+    $registerbox.find("a").on('click',function(){
+        $registerbox.hide();
+        $loginbox.show();
+    })
+
+    $registerbox.find("button").on('click',function(){
+        $.ajax({
+            type:'post',
+            url:'/api/user/register',
+            data:{
+                username:$registerbox.find('[name="username"]').val(),
+                password:$registerbox.find('[name="password"]').val(),
+                repassowrd:$registerbox.find('[name="repassowrd"]').val()
+            },
+            dataType:'json',
+            success:function(result){
+                $registerbox.find(".register-warning").html(result.message);
+                if(result.code=='5'){
+                    setTimeout(function(){
+                        $registerbox.hide();
+                        $loginbox.show();
+                    },1000);
+                }
+                console.log(result)
+            },
+            error:function(err){
+                console.log(err);
+            }
+        })
+    });
+    $loginbox.find("button").on('click',function(){
+        $.ajax({
+            type:'post',
+            url:'/api/user/login',
+            data:{
+                username:$loginbox.find('[name="username"]').val(),
+                password:$loginbox.find('[name="password"]').val()
+            },
+            dataType:'json',
+            success:function(result){
+                $(".login-after").show();
+                $loginbox.hide()
+                if(result.code == '2'){
+                    window.location.reload();
+                }
+                console.log(result);
+            },
+            error:function(err){
+                console.log(err);
+            }
+        })
+    });
+    $("#logout").on('click',function(){
+        $.ajax({
+            method:'get',
+            url:'/api/user/logout',
+            success:function(result){
+                if(result.code == '9'){
+                    window.location.reload();
+                }
+            }
+        })
+    })
+})
